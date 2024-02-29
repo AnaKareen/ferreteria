@@ -32,12 +32,21 @@ class Productos extends Sistema
     function insert($datos)
     {
         $this->connect();
-        if ($this->validateDoctor($datos)) {
-            $stmt = $this->conn->prepare("INSERT INTO producto(producto, precio, id_marca) VALUES (:producto, :precio, :id_marca);");
-            $stmt->bindParam(':producto', $datos['producto'], PDO::PARAM_STR);
-            $stmt->bindParam(':precio', $datos['precio'], PDO::PARAM_STR);
+        if ($this->validateProducto($datos)) {
+            $stmt = $this->conn->prepare("SELECT COUNT(*) AS count FROM marca WHERE id_marca = :id_marca");
             $stmt->bindParam(':id_marca', $datos['id_marca'], PDO::PARAM_INT);
             $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $marca_exists = $result['count'] > 0;
+            if ($marca_exists) {
+                $stmt = $this->conn->prepare("INSERT INTO producto(producto, precio, id_marca) VALUES (:producto, :precio, :id_marca);");
+                $stmt->bindParam(':producto', $datos['producto'], PDO::PARAM_STR);
+                $stmt->bindParam(':precio', $datos['precio'], PDO::PARAM_STR);
+                $stmt->bindParam(':id_marca', $datos['id_marca'], PDO::PARAM_INT);
+                $stmt->execute();
+            } else {
+                return 0;
+            }
             return $stmt->rowCount();
         }
         return 0;
@@ -56,16 +65,27 @@ class Productos extends Sistema
     function update($id_producto, $datos)
     {
         $this->connect();
-        $stmt = $this->conn->prepare("UPDATE producto SET producto = :producto, precio = :precio, id_marca = :id_marca WHERE id_producto = :id_producto;");
-        $stmt->bindParam(":producto", $datos["producto"], PDO::PARAM_STR);
-        $stmt->bindParam(":precio", $datos["precio"], PDO::PARAM_STR);
-        $stmt->bindParam(":id_marca", $datos["id_marca"], PDO::PARAM_INT);
-        $stmt->bindParam(':id_producto', $id_producto, PDO::PARAM_INT);
+
+        $stmt = $this->conn->prepare("SELECT COUNT(*) AS count FROM marca WHERE id_marca = :id_marca");
+        $stmt->bindParam(':id_marca', $datos['id_marca'], PDO::PARAM_INT);
         $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $marca_exists = $result['count'] > 0;
+
+        if ($marca_exists) {
+            $stmt = $this->conn->prepare("UPDATE producto SET producto = :producto, precio = :precio, id_marca = :id_marca WHERE id_producto = :id_producto;");
+            $stmt->bindParam(":producto", $datos["producto"], PDO::PARAM_STR);
+            $stmt->bindParam(":precio", $datos["precio"], PDO::PARAM_STR);
+            $stmt->bindParam(":id_marca", $datos["id_marca"], PDO::PARAM_INT);
+            $stmt->bindParam(':id_producto', $id_producto, PDO::PARAM_INT);
+            $stmt->execute();
+        } else {
+            return 0;
+        }
         return $stmt->rowCount();
     }
 
-    function validateDoctor($datos)
+    function validateProducto($datos)
     {
         if (empty($datos["producto"])) {
             return false;

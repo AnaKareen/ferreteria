@@ -41,7 +41,7 @@
     </div>
     <div class="row">
         <div class="col-lg-12 col-md-12">
-            <p><?php echo ($app->getCount() > 1) ? "Se encontraron ".$app->getCount()." productos" : "Se encontró ".$app->getCount()." producto"?></p>
+            <p><?php echo ($app->getCount() > 1) ? "Se encontraron " . $app->getCount() . " productos" : "Se encontró " . $app->getCount() . " producto" ?></p>
         </div>
     </div>
 </div>

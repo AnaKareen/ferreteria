@@ -32,7 +32,7 @@ class Marca extends Sistema
     function insert($datos)
     {
         $this->connect();
-        if ($this->validateDoctor($datos)) {
+        if ($this->validateMarca($datos)) {
             $stmt = $this->conn->prepare("INSERT INTO marca(marca) VALUES (:marca);");
             $stmt->bindParam(':marca', $datos['marca'], PDO::PARAM_STR);
             $stmt->execute();
@@ -61,7 +61,7 @@ class Marca extends Sistema
         return $stmt->rowCount();
     }
 
-    function validateDoctor($datos)
+    function validateMarca($datos)
     {
         if (empty($datos["marca"])) {
             return false;
