@@ -1,6 +1,9 @@
 <?php
 include 'productos.class.php';
+include 'marca.class.php';
 $app = new Productos();
+$appMarcas = new Marca();
+$marcas = $appMarcas->getAll();
 include 'views/header.php';
 $action = (isset($_GET['action'])) ? $_GET['action'] : null;
 $id_producto = (isset($_GET['id_producto'])) ? $_GET['id_producto'] : null;
@@ -36,6 +39,7 @@ switch ($action) {
         break;
     case "SAVE":
         $datos = $_POST;
+        $datos['fotografia'] = $_FILES['fotografia']['name'];
         if ($app->insert($datos) && isset($datos['id_marca'])) {
             $alert['type'] = 'success';
             $alert['message'] = '<i class="fa-solid fa-circle-check"></i> Producto registgrado correctamente';

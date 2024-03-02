@@ -17,6 +17,7 @@
                         <th scope="col">Producto</th>
                         <th scope="col">Precio</th>
                         <th scope="col">Marca</th>
+                        <!-- <th scope="col">Fotografia</th> -->
                         <th scope="col">Opciones</th>
                     </tr>
                 </thead>
@@ -25,8 +26,8 @@
                         <tr>
                             <th scope="row"><?php echo $dato['id_producto']; ?></th>
                             <td><?php echo $dato['producto']; ?></td>
-                            <td><?php echo $dato['precio']; ?></td>
-                            <td><?php echo $dato['id_marca']; ?></td>
+                            <td>$ <?php echo $dato['precio']; ?></td>
+                            <td><?php echo $dato['marca']; ?></td>
                             <td>
                                 <div class="btn-group" role="group">
                                     <a href="productos.php?action=UPDATE&id_producto=<?php echo $dato['id_producto']; ?>" class="btn btn-primary">Actualizar</a>

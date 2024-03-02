@@ -5,7 +5,7 @@ class Productos extends Sistema
     function getAll()
     {
         $this->connect();
-        $stmt = $this->conn->prepare("SELECT id_producto, producto, precio, id_marca FROM producto;");
+        $stmt = $this->conn->prepare("SELECT p.id_producto AS id_producto, p.producto AS producto, p.precio AS precio, m.id_marca AS id_marca, m.marca AS marca, p.fotografia AS fotografia FROM producto p LEFT JOIN marca m ON p.id_marca = m.id_marca;");
         $stmt->execute();
         $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $datos = $stmt->fetchAll();
@@ -16,7 +16,7 @@ class Productos extends Sistema
     function getOne($id_producto)
     {
         $this->connect();
-        $stmt = $this->conn->prepare("SELECT id_producto, producto, precio, id_marca FROM producto WHERE id_producto = :id_producto;");
+        $stmt = $this->conn->prepare("SELECT id_producto, producto, precio, id_marca , fotografia AS fotografia FROM producto WHERE id_producto = :id_producto;");
         $stmt->bindParam(':id_producto', $id_producto, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -39,10 +39,11 @@ class Productos extends Sistema
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             $marca_exists = $result['count'] > 0;
             if ($marca_exists) {
-                $stmt = $this->conn->prepare("INSERT INTO producto(producto, precio, id_marca) VALUES (:producto, :precio, :id_marca);");
+                $stmt = $this->conn->prepare("INSERT INTO producto(producto, precio, id_marca, fotografia) VALUES (:producto, :precio, :id_marca, :fotografia);");
                 $stmt->bindParam(':producto', $datos['producto'], PDO::PARAM_STR);
                 $stmt->bindParam(':precio', $datos['precio'], PDO::PARAM_STR);
                 $stmt->bindParam(':id_marca', $datos['id_marca'], PDO::PARAM_INT);
+                $stmt->bindParam(':fotografia', $datos['fotografia'], PDO::PARAM_STR);
                 $stmt->execute();
             } else {
                 return 0;
@@ -73,11 +74,12 @@ class Productos extends Sistema
         $marca_exists = $result['count'] > 0;
 
         if ($marca_exists) {
-            $stmt = $this->conn->prepare("UPDATE producto SET producto = :producto, precio = :precio, id_marca = :id_marca WHERE id_producto = :id_producto;");
+            $stmt = $this->conn->prepare("UPDATE producto SET producto = :producto, precio = :precio, id_marca = :id_marca, fotografia = :fotografia WHERE id_producto = :id_producto;");
             $stmt->bindParam(":producto", $datos["producto"], PDO::PARAM_STR);
             $stmt->bindParam(":precio", $datos["precio"], PDO::PARAM_STR);
             $stmt->bindParam(":id_marca", $datos["id_marca"], PDO::PARAM_INT);
             $stmt->bindParam(':id_producto', $id_producto, PDO::PARAM_INT);
+            $stmt->bindParam(':fotografia', $datos['fotografia'], PDO::PARAM_STR);
             $stmt->execute();
         } else {
             return 0;
