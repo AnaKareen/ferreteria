@@ -34,11 +34,8 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <span class="input-group-text"><i class="fa-solid fa-images"></i></span>
-                    <div class="form-floating">
-                        <input accept="image/*" type="file" class="form-control" id="fotografia" placeholder="Fotografia" name="fotografia" value="<?php echo (isset($datos['fotografia'])) ? $datos['fotografia'] : '' ?>">
-                        <label for="fotografia">Fotografia</label>
-                    </div>
+                    <label class="input-group-text" for="fotografia"><i class="fa-solid fa-images"></i></label>
+                    <input accept="image/*" type="file" class="form-control" id="fotografia" placeholder="Fotografia" name="fotografia" value="<?php echo (isset($datos['fotografia'])) ? $datos['fotografia'] : '' ?>">
                 </div>
                 <input type="submit" value="Guardar" class="btn btn-success mb-3 btn-lg" style="width: auto;" name="SAVE">
             </div>
