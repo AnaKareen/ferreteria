@@ -22,10 +22,7 @@
                     <div class="form-floating">
                         <select name="id_marca" id="selectIdMarca" class="form-select">
                             <?php foreach ($marcas as $marca) :
-                                $selected = '';
-                                if ($marca['id_marca'] == $datos['id_marca']) {
-                                    $selected = 'selected';
-                                }
+                                $selected = ($marca['id_marca'] == $datos['id_marca'])?'selected' : '';
                             ?>
                                 <option value="<?php echo $marca['id_marca']; ?>" <?php echo $selected; ?>><?php echo $marca['marca']; ?></option>
                             <?php endforeach; ?>
