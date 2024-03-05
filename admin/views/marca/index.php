@@ -1,5 +1,5 @@
 <div class="container">
-    <h1>Doctores</h1>
+    <h1>Marcas</h1>
     <div class="row">
         <div class="col-lg-4 col-md-12">
             <div class="btn-group" role="group" aria-label="Basic example">
