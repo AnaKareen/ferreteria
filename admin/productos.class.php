@@ -32,23 +32,26 @@ class Productos extends Sistema
     function insert($datos)
     {
         $this->connect();
-        if ($this->validateProducto($datos)) {
-            $stmt = $this->conn->prepare("SELECT COUNT(*) AS count FROM marca WHERE id_marca = :id_marca");
-            $stmt->bindParam(':id_marca', $datos['id_marca'], PDO::PARAM_INT);
-            $stmt->execute();
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            $marca_exists = $result['count'] > 0;
-            if ($marca_exists) {
-                $stmt = $this->conn->prepare("INSERT INTO producto(producto, precio, id_marca, fotografia) VALUES (:producto, :precio, :id_marca, :fotografia);");
-                $stmt->bindParam(':producto', $datos['producto'], PDO::PARAM_STR);
-                $stmt->bindParam(':precio', $datos['precio'], PDO::PARAM_STR);
+        $nombre_archivo = $this->upload('productos');
+        if($nombre_archivo) {
+            if ($this->validateProducto($datos)) {
+                $stmt = $this->conn->prepare("SELECT COUNT(*) AS count FROM marca WHERE id_marca = :id_marca");
                 $stmt->bindParam(':id_marca', $datos['id_marca'], PDO::PARAM_INT);
-                $stmt->bindParam(':fotografia', $datos['fotografia'], PDO::PARAM_STR);
                 $stmt->execute();
-            } else {
-                return 0;
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                $marca_exists = $result['count'] > 0;
+                if ($marca_exists) {
+                    $stmt = $this->conn->prepare("INSERT INTO producto(producto, precio, id_marca, fotografia) VALUES (:producto, :precio, :id_marca, :fotografia);");
+                    $stmt->bindParam(':producto', $datos['producto'], PDO::PARAM_STR);
+                    $stmt->bindParam(':precio', $datos['precio'], PDO::PARAM_STR);
+                    $stmt->bindParam(':id_marca', $datos['id_marca'], PDO::PARAM_INT);
+                    $stmt->bindParam(':fotografia', $nombre_archivo, PDO::PARAM_STR);
+                    $stmt->execute();
+                } else {
+                    return 0;
+                }
+                return $stmt->rowCount();
             }
-            return $stmt->rowCount();
         }
         return 0;
     }
