@@ -5,7 +5,7 @@ class Marca extends Sistema
     function getAll()
     {
         $this->connect();
-        $stmt = $this->conn->prepare("SELECT id_marca, marca FROM marca;");
+        $stmt = $this->conn->prepare("SELECT id_marca, marca, fotografia FROM marca;");
         $stmt->execute();
         $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $datos = $stmt->fetchAll();
@@ -16,7 +16,7 @@ class Marca extends Sistema
     function getOne($id_marca)
     {
         $this->connect();
-        $stmt = $this->conn->prepare("SELECT id_marca, marca FROM marca WHERE id_marca = :id_marca;");
+        $stmt = $this->conn->prepare("SELECT id_marca, marca, fotografia FROM marca WHERE id_marca = :id_marca;");
         $stmt->bindParam(':id_marca', $id_marca, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -32,11 +32,15 @@ class Marca extends Sistema
     function insert($datos)
     {
         $this->connect();
-        if ($this->validateMarca($datos)) {
-            $stmt = $this->conn->prepare("INSERT INTO marca(marca) VALUES (:marca);");
-            $stmt->bindParam(':marca', $datos['marca'], PDO::PARAM_STR);
-            $stmt->execute();
-            return $stmt->rowCount();
+        $nombre_archivo = $this->upload('marcas');
+        if ($nombre_archivo) {
+            if ($this->validateMarca($datos)) {
+                $stmt = $this->conn->prepare("INSERT INTO marca(marca, fotografia) VALUES (:marca, :fotografia);");
+                $stmt->bindParam(':marca', $datos['marca'], PDO::PARAM_STR);
+                $stmt->bindParam(':fotografia', $nombre_archivo, PDO::PARAM_STR);
+                $stmt->execute();
+                return $stmt->rowCount();
+            }
         }
         return 0;
     }

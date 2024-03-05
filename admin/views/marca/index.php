@@ -15,6 +15,7 @@
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Marca</th>
+                        <th scope="col">Fotografia</th>
                         <th scope="col">Opciones</th>
                     </tr>
                 </thead>
@@ -23,6 +24,7 @@
                         <tr>
                             <th scope="row"><?php echo $dato['id_marca']; ?></th>
                             <td><?php echo $dato['marca']; ?></td>
+                            <td><?php echo $dato['fotografia']; ?></td>
                             <td>
                                 <div class="btn-group" role="group">
                                     <a href="marca.php?action=UPDATE&id_marca=<?php echo $dato['id_marca']; ?>" class="btn btn-primary">Actualizar</a>
