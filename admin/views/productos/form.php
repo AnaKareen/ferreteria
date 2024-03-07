@@ -22,7 +22,7 @@
                     <div class="form-floating">
                         <select name="id_marca" id="selectIdMarca" class="form-select">
                             <?php foreach ($marcas as $marca) :
-                                $selected = ($marca['id_marca'] == $datos['id_marca'])?'selected' : '';
+                                $selected = ($marca['id_marca'] == $datos['id_marca']) ? 'selected' : '';
                             ?>
                                 <option value="<?php echo $marca['id_marca']; ?>" <?php echo $selected; ?>><?php echo $marca['marca']; ?></option>
                             <?php endforeach; ?>
@@ -30,6 +30,12 @@
                         <label for="selectIdMarca">Marca</label>
                     </div>
                 </div>
+                <?php if ($action == 'UPDATE') : ?>
+                    <label for="">Imágen actual</label>
+                    <div class="mb-3">
+                        <img src="../uploads/productos/<?php echo $datos['fotografia']; ?>" style="width: 250px; height: 250px;">
+                    </div>
+                <?php endif; ?>
                 <div class="input-group mb-3">
                     <label class="input-group-text" for="fotografia"><i class="fa-solid fa-images"></i></label>
                     <input accept="image/*" type="file" class="form-control" id="fotografia" placeholder="Fotografia" name="fotografia" value="<?php echo (isset($datos['fotografia'])) ? $datos['fotografia'] : '' ?>">

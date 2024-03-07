@@ -30,12 +30,14 @@ class Sistema
                 $n = rand(1, 1000000);
                 $nombre_archivo = $n . $_FILES['fotografia']['size'] . $_FILES['fotografia']['name'];
                 $nombre_archivo = md5($nombre_archivo);
-                $extension = explode('.', $_FILES['fotografia']['name']);
-                $extension = $extension[sizeof($extension) - 1];
+                $extension = pathinfo($_FILES['fotografia']['name'], PATHINFO_EXTENSION);
+                // $extension = explode('.', $_FILES['fotografia']['name']);
+                // $extension = $extension[sizeof($extension) - 1];
                 $nombre_archivo = $nombre_archivo . "." . $extension;
-                // $extension = pathinfo($_FILES['fotografia']['name'], PATHINFO_EXTENSION);
-                if (!file_exists('..\\uploads\\' . $carpeta . '\\' . $nombre_archivo)) {
-                    move_uploaded_file($_FILES['fotografia']['tmp_name'], '..\\uploads\\' . $carpeta . '\\' . $nombre_archivo);
+                $ruta = '..\\uploads\\' . $carpeta . '\\' . $nombre_archivo;
+                if (!file_exists($ruta)) {
+                    move_uploaded_file($_FILES['fotografia']['tmp_name'], $ruta);
+                    chmod($ruta, 0777);
                     return $nombre_archivo;
                 }
             }

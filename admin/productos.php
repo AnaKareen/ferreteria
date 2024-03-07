@@ -39,7 +39,7 @@ switch ($action) {
         break;
     case "SAVE":
         $datos = $_POST;
-        $datos['fotografia'] = $_FILES['fotografia']['name'];
+        // $datos['fotografia'] = $_FILES['fotografia']['name'];
         if ($app->insert($datos) && isset($datos['id_marca'])) {
             $alert['type'] = 'success';
             $alert['message'] = '<i class="fa-solid fa-circle-check"></i> Producto registgrado correctamente';
