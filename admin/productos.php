@@ -1,10 +1,10 @@
 <?php
-include 'productos.class.php';
-include 'marca.class.php';
+include __DIR__ . '\\productos.class.php';
+include __DIR__ . '\\marca.class.php';
 $app = new Productos();
 $appMarcas = new Marca();
 $marcas = $appMarcas->getAll();
-include 'views/header.php';
+include __DIR__ . '\\views\\header.php';
 $action = (isset($_GET['action'])) ? $_GET['action'] : null;
 $id_producto = (isset($_GET['id_producto'])) ? $_GET['id_producto'] : null;
 $datos = array();
@@ -19,23 +19,23 @@ switch ($action) {
             $alert['message'] = '<i class="fa-solid fa-circle-xmark"></i> No se pudo eliminar el producto';
         }
         $datos = $app->getAll();
-        include 'views/alert.php';
-        include 'views/productos/index.php';
+        include __DIR__ . '\\views\\alert.php';
+        include __DIR__ . '\\views\\productos\\index.php';
         break;
     case "UPDATE":
         $datos = $app->getOne($id_producto);
         if (isset($datos['id_producto'])) {
-            include 'views/productos/form.php';
+            include __DIR__ . '\\views\\productos\\form.php';
         } else {
             $alert['type'] = 'danger';
             $alert['message'] = '<i class="fa-solid fa-circle-xmark"></i> No se ha encontrado el producto especificado';
             $datos = $app->getAll();
-            include 'views/alert.php';
-            include 'views/productos/index.php';
+            include __DIR__ . '\\views\\alert.php';
+            include __DIR__ . '\\views\\productos\\index.php';
         }
         break;
     case "CREATE":
-        include 'views/productos/form.php';
+        include __DIR__ . '\\views\\productos\\form.php';
         break;
     case "SAVE":
         $datos = $_POST;
@@ -48,8 +48,8 @@ switch ($action) {
             $alert['message'] = '<i class="fa-solid fa-circle-xmark"></i> No se pudo registrar el producto';
         }
         $datos = $app->getAll();
-        include 'views/alert.php';
-        include 'views/productos/index.php';
+        include __DIR__ . '\\views\\alert.php';
+        include __DIR__ . '\\views\\productos\\index.php';
         break;
     case "EDIT":
         $datos = $_POST;
@@ -61,12 +61,12 @@ switch ($action) {
             $alert['message'] = '<i class="fa-solid fa-circle-xmark"></i> No se pudo actualizar el producto';
         }
         $datos = $app->getAll();
-        include 'views/alert.php';
-        include 'views/productos/index.php';
+        include __DIR__ . '\\views\\alert.php';
+        include __DIR__ . '\\views\\productos\\index.php';
         break;
     default:
         $datos = $app->getAll();
-        include 'views/productos/index.php';
+        include __DIR__ . '\\views\\productos\\index.php';
         break;
 }
-include 'views/footer.php';
+include __DIR__ . '\\views\\footer.php';

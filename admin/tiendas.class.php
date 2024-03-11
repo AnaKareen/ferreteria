@@ -1,5 +1,5 @@
 <?php
-require_once('sistema.class.php');
+require_once __DIR__ . '\\sistema.class.php';
 class Tienda extends Sistema
 {
     function getAll()

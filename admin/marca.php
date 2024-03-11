@@ -1,7 +1,7 @@
 <?php
-include 'marca.class.php';
+include __DIR__ . '\\marca.class.php';
 $app = new Marca();
-include 'views/header.php';
+include __DIR__ . '\\views\\header.php';
 $action = (isset($_GET['action'])) ? $_GET['action'] : null;
 $id_marca = (isset($_GET['id_marca'])) ? $_GET['id_marca'] : null;
 $datos = array();
@@ -16,23 +16,23 @@ switch ($action) {
             $alert['message'] = '<i class="fa-solid fa-circle-xmark"></i> No se pudo eliminar la marca';
         }
         $datos = $app->getAll();
-        include 'views/alert.php';
-        include 'views/marca/index.php';
+        include __DIR__ . '\\views\\alert.php';
+        include __DIR__ . '\\views\\marca\\index.php';
         break;
     case "UPDATE":
         $datos = $app->getOne($id_marca);
         if (isset($datos['id_marca'])) {
-            include 'views/marca/form.php';
+            include __DIR__ . '\\views\\marca\\form.php';
         } else {
             $alert['type'] = 'danger';
             $alert['message'] = '<i class="fa-solid fa-circle-xmark"></i> No se ha encontrado la marca especificada';
             $datos = $app->getAll();
-            include 'views/alert.php';
-            include 'views/marca/index.php';
+            include __DIR__ . '\\views\\alert.php';
+            include __DIR__ . '\\views\\marca\\index.php';
         }
         break;
     case "CREATE":
-        include 'views/marca/form.php';
+        include __DIR__ . '\\views\\marca\\form.php';
         break;
     case "SAVE":
         $datos = $_POST;
@@ -44,8 +44,8 @@ switch ($action) {
             $alert['message'] = '<i class="fa-solid fa-circle-xmark"></i> No se pudo registrar la marca';
         }
         $datos = $app->getAll();
-        include 'views/alert.php';
-        include 'views/marca/index.php';
+        include __DIR__ . '\\views\\alert.php';
+        include __DIR__ . '\\views\\marca\\index.php';
         break;
     case "EDIT":
         $datos = $_POST;
@@ -57,12 +57,12 @@ switch ($action) {
             $alert['message'] = '<i class="fa-solid fa-circle-xmark"></i> No se pudo actualizar la marca';
         }
         $datos = $app->getAll();
-        include 'views/alert.php';
-        include 'views/marca/index.php';
+        include __DIR__ . '\\views\\alert.php';
+        include __DIR__ . '\\views\\marca\\index.php';
         break;
     default:
         $datos = $app->getAll();
-        include 'views/marca/index.php';
+        include __DIR__ . '\\views\\marca\\index.php';
         break;
 }
-include 'views/footer.php';
+include __DIR__ . '\\views\\footer.php';

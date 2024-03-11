@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '\\config.php';
-class Sistema
+class Sistema extends Config
 {
     var $conn;
     var $count = 0;
@@ -22,9 +22,8 @@ class Sistema
 
     function upload($carpeta)
     {
-        $permitidos = array('image/jpeg', 'image/png');
-        if (in_array($_FILES['fotografia']['type'], $permitidos)) {
-            if ($_FILES['fotografia']['size'] <= 1024000) {
+        if (in_array($_FILES['fotografia']['type'], $this->getImageType())) {
+            if ($_FILES['fotografia']['size'] <= $this->getImageSize()) {
                 $n = rand(1, 1000000);
                 $nombre_archivo = $n . $_FILES['fotografia']['size'] . $_FILES['fotografia']['name'];
                 $nombre_archivo = md5($nombre_archivo);
