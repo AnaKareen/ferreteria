@@ -1,15 +1,13 @@
 <?php
+require __DIR__ . '\\config.php';
 class Sistema
 {
     var $conn;
     var $count = 0;
     function connect()
     {
-        $servername = "127.0.0.1";
-        $username = "ferreteria";
-        $password = "@admin";
-        $mydb = "ferreteria";
-        $this->conn = new PDO("mysql:host=$servername;dbname=$mydb", $username, $password);
+
+        $this->conn = new PDO(DB_DRIVER . ":host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD);
     }
 
     function setCount($count)
