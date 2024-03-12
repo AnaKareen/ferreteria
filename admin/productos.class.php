@@ -5,7 +5,7 @@ class Productos extends Sistema
     function getAll()
     {
         $this->connect();
-        $stmt = $this->conn->prepare("SELECT p.id_producto AS id_producto, p.producto AS producto, p.precio AS precio, m.id_marca AS id_marca, m.marca AS marca, p.fotografia AS fotografia FROM producto p LEFT JOIN marca m ON p.id_marca = m.id_marca;");
+        $stmt = $this->conn->prepare("SELECT p.id_producto AS id_producto, p.producto AS producto, p.precio AS precio, m.id_marca AS id_marca, m.marca AS marca, p.fotografia AS fotografia FROM producto p LEFT JOIN marca m ON p.id_marca = m.id_marca ORDER BY id_producto;");
         $stmt->execute();
         $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $datos = $stmt->fetchAll();
