@@ -6,7 +6,6 @@ class Sistema extends Config
     var $count = 0;
     function connect()
     {
-
         $this->conn = new PDO(DB_DRIVER . ":host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD);
     }
 
