@@ -1,32 +1,52 @@
-<?php include 'views/header.php'; ?>
+<?php
+include 'views/header.php';
+include __DIR__ . '\\sistema.class.php';
+$app = new Sistema();
+$sql = "SELECT m.marca AS marca, SUM(vd.cantidad * p.precio) AS monto FROM marca m JOIN producto p ON m.id_marca = p.id_marca JOIN venta_detalle vd ON vd.id_producto = p.id_producto GROUP BY m.marca ORDER BY m.marca ASC";
+$datos = $app->query($sql);
+?>
 <script type="text/javascript">
-    google.charts.load('current', {
-        'packages': ['bar']
+    google.charts.load("current", {
+        packages: ["corechart"]
     });
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
-            ['Year', 'Sales', 'Expenses', 'Profit'],
-            ['2014', 1000, 400, 200],
-            ['2015', 1170, 460, 250],
-            ['2016', 660, 1120, 300],
-            ['2017', 1030, 540, 350]
+            ["Marca", "Monto", {
+                role: "style"
+            }],
+            <?php foreach ($datos as $dato) : ?>["<?php echo $dato['marca']; ?>", <?php echo $dato['monto']; ?>, "#5522FF"],
+            <?php endforeach; ?>
+        ]);
+
+        var view = new google.visualization.DataView(data);
+        view.setColumns([0, 1,
+            {
+                calc: "stringify",
+                sourceColumn: 1,
+                type: "string",
+                role: "annotation"
+            },
+            2
         ]);
 
         var options = {
-            chart: {
-                title: 'Company Performance',
-                subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+            title: "Monto total por marca",
+            width: 850,
+            height: 640,
+            bar: {
+                groupWidth: "75%"
             },
-            bars: 'horizontal' // Required for Material Bar Charts.
+            legend: {
+                position: "none"
+            },
         };
-
-        var chart = new google.charts.Bar(document.getElementById('barchart_material'));
-
-        chart.draw(data, google.charts.Bar.convertOptions(options));
+        var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+        chart.draw(view, options);
     }
 </script>
+<div id="barchart_values" style="width: 900px; height: 300px;"></div>
 </head>
 
 <body>
