@@ -1,5 +1,5 @@
 <div class="container">
-    <h1><?php echo ($action == 'UPDATE') ? 'Actualizar información del doctor' : 'Agregar nuevo doctor'; ?></h1>
+    <h1><?php echo ($action == 'UPDATE') ? 'Actualizar información de la marca' : 'Agregar nueva marca'; ?></h1>
     <form action="marca.php?action=<?php echo ($action == 'UPDATE') ? 'EDIT&id_marca=' . $datos['id_marca'] : 'SAVE'; ?>" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="col-lg-8 col-md-12">

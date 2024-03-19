@@ -28,6 +28,7 @@
                             Catálogos
                         </a>
                         <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="cliente.php">Clientes</a></li>
                             <li><a class="dropdown-item" href="empleado.php">Empleados</a></li>
                             <li><a class="dropdown-item" href="marca.php">Marcas</a></li>
                             <li><a class="dropdown-item" href="productos.php">Productos</a></li>
