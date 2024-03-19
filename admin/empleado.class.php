@@ -5,7 +5,7 @@ class Empleado extends Sistema
     function getAll()
     {
         $this->connect();
-        $stmt = $this->conn->prepare("SELECT id_empleado, nombre, primer_apellido, segundo_apellido, rfc, curp FROM empleado;");
+        $stmt = $this->conn->prepare("SELECT * FROM empleado;");
         $stmt->execute();
         $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $datos = $stmt->fetchAll();
@@ -16,7 +16,7 @@ class Empleado extends Sistema
     function getOne($id_empleado)
     {
         $this->connect();
-        $stmt = $this->conn->prepare("SELECT id_empleado, nombre, primer_apellido, segundo_apellido, rfc, curp FROM empleado WHERE id_empleado = :id_empleado;");
+        $stmt = $this->conn->prepare("SELECT * FROM empleado WHERE id_empleado = :id_empleado;");
         $stmt->bindParam(':id_empleado', $id_empleado, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -33,7 +33,13 @@ class Empleado extends Sistema
     {
         $this->connect();
         if ($this->validateEmpleado($datos)) {
-            $stmt = $this->conn->prepare("INSERT INTO empleado(nombre, primer_apellido, segundo_apellido, rfc, curp) VALUES (:nombre, :primer_apellido, :segundo_apellido, :rfc, :curp);");
+            if (isset($datos['foto'])) {
+                $foto = $datos['foto'];
+                $stmt = $this->conn->prepare("INSERT INTO empleado(nombre, primer_apellido, segundo_apellido, rfc, curp, fotografia) VALUES (:nombre, :primer_apellido, :segundo_apellido, :rfc, :curp, :fotografia);");
+                $stmt->bindParam(':fotografia', $foto, PDO::PARAM_LOB);
+            } else {
+                $stmt = $this->conn->prepare("INSERT INTO empleado(nombre, primer_apellido, segundo_apellido, rfc, curp) VALUES (:nombre, :primer_apellido, :segundo_apellido, :rfc, :curp);");
+            }
             $stmt->bindParam(':nombre', $datos['nombre'], PDO::PARAM_STR);
             $stmt->bindParam(':primer_apellido', $datos['primer_apellido'], PDO::PARAM_STR);
             $stmt->bindParam(':segundo_apellido', $datos['segundo_apellido'], PDO::PARAM_STR);
@@ -44,6 +50,7 @@ class Empleado extends Sistema
         }
         return 0;
     }
+
 
     function delete($id_empleado)
     {
@@ -59,7 +66,13 @@ class Empleado extends Sistema
     {
         if ($this->validateEmpleado($datos)) {
             $this->connect();
-            $stmt = $this->conn->prepare("UPDATE empleado SET nombre = :nombre, primer_apellido = :primer_apellido, segundo_apellido = :segundo_apellido, rfc = :rfc, curp = :curp WHERE id_empleado = :id_empleado;");
+            if (!empty($datos['foto'])) {
+                $foto = $datos['foto'];
+                $stmt = $this->conn->prepare("UPDATE empleado SET nombre = :nombre, primer_apellido = :primer_apellido, segundo_apellido = :segundo_apellido, rfc = :rfc, curp = :curp, fotografia = :foto WHERE id_empleado = :id_empleado;");
+                $stmt->bindParam(':foto', $foto, PDO::PARAM_LOB);
+            } else {
+                $stmt = $this->conn->prepare("UPDATE empleado SET nombre = :nombre, primer_apellido = :primer_apellido, segundo_apellido = :segundo_apellido, rfc = :rfc, curp = :curp WHERE id_empleado = :id_empleado;");
+            }
             $stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
             $stmt->bindParam(":primer_apellido", $datos["primer_apellido"], PDO::PARAM_STR);
             $stmt->bindParam(":segundo_apellido", $datos["segundo_apellido"], PDO::PARAM_STR);

@@ -36,6 +36,10 @@ switch ($action) {
         break;
     case "SAVE":
         $datos = $_POST;
+        // echo "<pre>";
+        // print_r($datos);
+        // echo "</pre>";
+        // die;
         if ($app->insert($datos)) {
             $alert['type'] = 'success';
             $alert['message'] = '<i class="fa-solid fa-circle-check"></i> empleado registrado correctamente';
@@ -49,6 +53,10 @@ switch ($action) {
         break;
     case "EDIT":
         $datos = $_POST;
+        // echo "<pre>";
+        // print_r($datos);
+        // echo "</pre>";
+        // die;
         if ($app->update($id_empleado, $datos)) {
             $alert['type'] = 'success';
             $alert['message'] = '<i class="fa-solid fa-circle-check"></i> empleado actualizado correctamente';

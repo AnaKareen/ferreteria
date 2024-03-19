@@ -1,16 +1,9 @@
-<style>
-    @media only screen and (max-width: 700px) {
-        video {
-            max-width: 100%;
-        }
-    }
-</style>
-<script src="views/empleado/js/script.js"></script>
 <div class="container">
     <h1><?php echo ($action == 'UPDATE') ? 'Actualizar información del empleado' : 'Agregar nuevo empleado'; ?></h1>
     <form action="empleado.php?action=<?php echo ($action == 'UPDATE') ? 'EDIT&id_empleado=' . $datos['id_empleado'] : 'SAVE'; ?>" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="col-lg-8 col-md-12">
+                <!-- Resto del formulario -->
                 <div class="input-group mb-3">
                     <span class="input-group-text"><i class="fa fa-user"></i></span>
                     <div class="form-floating">
@@ -46,16 +39,31 @@
                         <label for="curp">CURP</label>
                     </div>
                 </div>
-                <div>
-                    <select name="listaDeDispositivos" id="listaDeDispositivos"></select>
-                    <button id="boton">Tomar foto</button>
-                    <p id="estado"></p>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="tomar-foto-checkbox">
+                    <label class="form-check-label" for="tomar-foto-checkbox">Tomar Fotografía</label>
                 </div>
-                <br>
-                <video muted="muted" id="video"></video>
-                <canvas id="canvas" style="display: none;"></canvas>
-                <input type="submit" value="Guardar" class="btn btn-success mb-3 btn-lg" style="width: auto;" name="SAVE">
+                <img src="<?php echo (isset($datos['fotografia'])) ? $datos['fotografia'] : ''; ?>" alt="" class="mb-3">
+                <div id="foto-container" style="display: none;">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <video id="video" width="400" height="300" autoplay></video>
+                        </div>
+                        <div>
+                            <img id="photo" src="#" alt="Fotografía" style="display:none; width: 400px; height: 300px;">
+                        </div>
+                    </div>
+                    <button id="capture-btn" type="button" class="btn btn-primary mb-3">Tomar Foto</button>
+                    <button id="repeat-btn" type="button" class="btn btn-danger mb-3" style="display:none;">Repetir Fotografía</button>
+                    <input type="hidden" id="foto" name="foto">
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="submit" value="Guardar" class="btn btn-success mb-3 btn-lg" style="width: auto;" name="SAVE">
+                    </div>
+                </div>
             </div>
         </div>
     </form>
 </div>
+<script src="views/empleado/js/script.js"></script>
