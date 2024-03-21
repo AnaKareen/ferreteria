@@ -2,6 +2,7 @@
 include __DIR__ . '\\marca.class.php';
 $app = new Marca();
 include __DIR__ . '\\views\\header.php';
+$app->checkRol('Administrador', true);
 $action = (isset($_GET['action'])) ? $_GET['action'] : null;
 $id_marca = (isset($_GET['id_marca'])) ? $_GET['id_marca'] : null;
 $datos = array();

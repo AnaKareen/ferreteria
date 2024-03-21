@@ -60,9 +60,68 @@ class Sistema extends Config
         $datos = array();
         $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $datos = $stmt->fetchAll();
-        if (isset($datos[0]))
+        if (isset($datos[0])) {
+            $roles = array();
+            $roles = $this->getRol($correo);
+            $privilegios = array();
+            $privilegios = $this->getPrivilegio($correo);
+            $_SESSION['validado'] = true;
+            $_SESSION['correo'] = $correo;
+            $_SESSION['roles'] = $roles;
+            $_SESSION['privilegios'] = $privilegios;
             return $datos[0];
+        } else {
+            $this->logout();
+        }
         return false;
+    }
+
+    function logout()
+    {
+        unset($_SESSION);
+        session_destroy();
+    }
+
+    function checkRol($rol, $kill = false)
+    {
+        if (isset($_SESSION['roles'])) {
+            if ($_SESSION['validado']) {
+                if (in_array($rol, $_SESSION['roles'])) {
+                    return true;
+                }
+            }
+        }
+        if ($kill) {
+            $this->logout();
+            $this->alert('danger', 'Permiso denegado');
+            die;
+        }
+        return false;
+    }
+
+    function checkPrivilegio($privilegio, $kill = false)
+    {
+        if (isset($_SESSION['privilegios'])) {
+            if ($_SESSION['validado']) {
+                if (in_array($privilegio, $_SESSION['privilegios'])) {
+                    return true;
+                }
+            }
+        }
+        if ($kill) {
+            $this->logout();
+            $this->alert('danger', 'Permiso denegado');
+            die;
+        }
+        return false;
+    }
+
+    function alert($type, $message)
+    {
+        $alert = array();
+        $alert['type'] = $type;
+        $alert['message'] = $message;
+        include __DIR__ . '/views/alert.php';
     }
 
     function setCount($count)

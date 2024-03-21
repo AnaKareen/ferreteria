@@ -2,6 +2,8 @@
 require_once __DIR__ . '\\tiendas.class.php';
 $app = new Tienda();
 include __DIR__ . '\\views\\header.php';
+// $app->checkRol('Administrador', true);
+$app->checkPrivilegio('Tienda', true);
 $action = (isset($_GET['action'])) ? $_GET['action'] : null;
 $id_tienda = (isset($_GET['id_tienda'])) ? $_GET['id_tienda'] : null;
 $datos = array();

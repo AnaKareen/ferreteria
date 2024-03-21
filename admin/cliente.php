@@ -2,6 +2,7 @@
 include __DIR__ . '\\cliente.class.php';
 $app = new Cliente();
 include __DIR__ . '\\views\\header.php';
+$app->checkRol('Administrador', true);
 $action = (isset($_GET['action'])) ? $_GET['action'] : null;
 $id_cliente = (isset($_GET['id_cliente'])) ? $_GET['id_cliente'] : null;
 $datos = array();

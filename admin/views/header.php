@@ -35,6 +35,9 @@
                             <li><a class="dropdown-item" href="tiendas.php">Tienda</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="login.php?action=logout">Logout</a>
+                    </li>
                 </ul>
             </div>
         </div>

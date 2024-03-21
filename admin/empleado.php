@@ -2,6 +2,7 @@
 include __DIR__ . '\\empleado.class.php';
 $app = new Empleado();
 include __DIR__ . '\\views\\header.php';
+$app->checkRol('Administrador', true);
 $action = (isset($_GET['action'])) ? $_GET['action'] : null;
 $id_empleado = (isset($_GET['id_empleado'])) ? $_GET['id_empleado'] : null;
 $datos = array();

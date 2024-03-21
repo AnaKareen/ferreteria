@@ -3,6 +3,7 @@ include __DIR__ . '\\productos.class.php';
 include __DIR__ . '\\marca.class.php';
 $app = new Productos();
 $appMarcas = new Marca();
+$app->checkRol('Administrador', true);
 $marcas = $appMarcas->getAll();
 include __DIR__ . '\\views\\header.php';
 $action = (isset($_GET['action'])) ? $_GET['action'] : null;

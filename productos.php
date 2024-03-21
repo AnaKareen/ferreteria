@@ -233,6 +233,7 @@ $datos = $web->getAll();
         </div>
     </div>
     <span id="themesBtn"></span>
+    <a href="admin/login.php">Login</a>
 </body>
 
 </html>
