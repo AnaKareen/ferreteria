@@ -4,6 +4,15 @@ include __DIR__ . '\\sistema.class.php';
 $app = new Sistema();
 $sql = "SELECT m.marca AS marca, SUM(vd.cantidad * p.precio) AS monto FROM marca m JOIN producto p ON m.id_marca = p.id_marca JOIN venta_detalle vd ON vd.id_producto = p.id_producto GROUP BY m.marca ORDER BY m.marca ASC";
 $datos = $app->query($sql);
+$roles = $app->getRol('luislao1@itcelaya.edu.mx');
+$privilegios = $app->getPrivilegio('luislao1@itcelaya.edu.mx');
+echo "<pre>";
+print_r($roles);
+print_r($privilegios);
+echo "</pre>";
+$login = $app->login('21030017@itcelaya.edu.mx', '1234');
+var_dump($login);
+die;
 ?>
 <script type="text/javascript">
     google.charts.load("current", {
