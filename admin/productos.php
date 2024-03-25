@@ -1,11 +1,11 @@
 <?php
 include __DIR__ . '\\productos.class.php';
 include __DIR__ . '\\marca.class.php';
+include __DIR__ . '\\views\\header.php';
 $app = new Productos();
 $appMarcas = new Marca();
 $app->checkRol('Administrador', true);
 $marcas = $appMarcas->getAll();
-include __DIR__ . '\\views\\header.php';
 $action = (isset($_GET['action'])) ? $_GET['action'] : null;
 $id_producto = (isset($_GET['id_producto'])) ? $_GET['id_producto'] : null;
 $datos = array();
