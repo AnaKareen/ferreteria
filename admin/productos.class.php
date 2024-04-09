@@ -1,5 +1,10 @@
 <?php
-require __DIR__ . '\\sistema.class.php';
+if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
+    // Redireccionar a productos.php
+    header('Location: productos.php');
+    exit; // Detener la ejecución del resto del código
+}
+require __DIR__ . "\\sistema.class.php";
 class Productos extends Sistema
 {
     function getAll()
@@ -33,6 +38,8 @@ class Productos extends Sistema
     {
         $this->connect();
         $nombre_archivo = $this->upload('productos');
+        print_r($datos['imagen']);
+        die;
         if ($this->validateProducto($datos)) {
             $stmt = $this->conn->prepare("SELECT COUNT(*) AS count FROM marca WHERE id_marca = :id_marca");
             $stmt->bindParam(':id_marca', $datos['id_marca'], PDO::PARAM_INT);
@@ -46,7 +53,6 @@ class Productos extends Sistema
                 } else {
                     $stmt = $this->conn->prepare("INSERT INTO producto(producto, precio, id_marca) VALUES (:producto, :precio, :id_marca);");
                 }
-
                 $stmt->bindParam(':producto', $datos['producto'], PDO::PARAM_STR);
                 $stmt->bindParam(':precio', $datos['precio'], PDO::PARAM_STR);
                 $stmt->bindParam(':id_marca', $datos['id_marca'], PDO::PARAM_INT);

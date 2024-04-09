@@ -22,6 +22,18 @@ switch ($action) {
             $app->alert($type, $message);
         }
         break;
+    case 'forgot':
+        include __DIR__ . '/views/login/forgot.php';
+        break;
+    case 'reset':
+        $correo = $_POST['correo'];
+        $reset = $app->reset($correo);
+        if ($reset) {
+            $app->alert('success', '<i class="fa-solid fa-circle-check"></i> Correo enviado correctamente');
+        } else {
+            $app->alert('danger', '<i class="fa-solid fa-circle-xmark"></i> Correo no encontrado');
+        }
+        break;
     default:
         include __DIR__ . '/views/login/index.php';
 }

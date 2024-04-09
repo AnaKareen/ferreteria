@@ -27,7 +27,7 @@
                     <?php foreach ($datos as $dato) : ?>
                         <tr>
                             <td style="vertical-align: middle;"><?php echo $dato['id_empleado']; ?></td>
-                            <td style="vertical-align: middle;"><img src="<?php echo $dato['fotografia']; ?>" alt="foto" style="width: 80px; height: 80px;"></td>
+                            <td style="vertical-align: middle;"><img src="<?php echo (isset($dato['fotografia'])) ? $dato['fotografia'] : '../uploads/empleados/default.png'; ?>" alt="foto" style="width: 80px; height: 80px;"></td>
                             <td style="vertical-align: middle;"><?php echo $dato['nombre']; ?></td>
                             <td style="vertical-align: middle;"><?php echo $dato['primer_apellido']; ?></td>
                             <td style="vertical-align: middle;"><?php echo $dato['segundo_apellido']; ?></td>
