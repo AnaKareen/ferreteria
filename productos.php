@@ -64,6 +64,7 @@ $datos = $web->getAll();
                         <li class=""><a href="special_offer.html">Ofertas</a></li>
                         <li class=""><a href="normal.html">Envíos</a></li>
                         <li class=""><a href="contact.html">Contacto</a></li>
+                        <li><a href="registro.php">Registro</a></li>
                         <li class="">
                             <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Iniciar sesión</span></a>
                             <div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false">

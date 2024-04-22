@@ -141,8 +141,9 @@ class Sistema extends Config
     {
         if ($this->checkEmail($correo)) {
             $this->connect();
-            $sql = "SELECT * FROM usuario WHERE correo = '" . $correo . "';";
+            $sql = "SELECT * FROM usuario WHERE correo = :correo;";
             $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':correo', $correo, PDO::PARAM_STR);
             $stmt->execute();
             $datos = array();
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -162,7 +163,7 @@ class Sistema extends Config
                 $mensaje = "
                 Hola, se ha solicitado la recuperacion de su cuenta. <br>
                 Para recuperar su contraseña, haga click en el siguiente enlace: <br>
-                <a href='http://localhost/ferreteria/admin/login.php?action=RECOVERY&token='". $token . "'>Recuperar contraseña</a><br>
+                <a href='http://localhost/ferreteria/admin/login.php?action=RECOVERY&token=" . $token . "'>Recuperar contraseña</a><br>
                 <br>
                 Muchas gracias, atentamente: La ferreteria :3
                 ";
@@ -225,6 +226,108 @@ class Sistema extends Config
             return false;
         } else {
             return true;
+        }
+    }
+
+    public function recovery($token, $password = null)
+    {
+        $this->connect();
+        if (strlen($token) == 64) {
+            $sql = "SELECT * FROM usuario WHERE token = :token;";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':token', $token, PDO::PARAM_STR);
+            $stmt->execute();
+            $datos = array();
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $datos = $stmt->fetchAll();
+            if (isset($datos[0])) {
+                if (!is_null($password)) {
+                    $password = md5($password);
+                    $correo = $datos[0]['correo'];
+                    $sql = "UPDATE usuario SET password = :password, token = null WHERE correo = :correo";
+                    $stmt = $this->conn->prepare($sql);
+                    $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+                    $stmt->bindParam(':correo', $correo, PDO::PARAM_STR);
+                    $stmt->execute();
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function register($datos)
+    {
+        if (!filter_var($datos['correo'], FILTER_VALIDATE_EMAIL)) {
+            $this->alert('danger', 'Correo no valido');
+            return false;
+        }
+        $this->connect();
+        try {
+            $this->conn->beginTransaction();
+            $sql = "SELECT * FROM usuario WHERE correo = :correo";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':correo', $datos['correo'], PDO::PARAM_STR);
+            $stmt->execute();
+            $usuario = array();
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $usuario = $stmt->fetchAll();
+            if (isset($usuario[0])) {
+                $this->alert('danger', 'Correo ya registrado');
+                $this->conn->rollBack();
+                return false;
+            }
+            $sql = "INSERT INTO usuario (correo, password) VALUES (:correo, :password);";
+            $stmt = $this->conn->prepare($sql);
+            $password = $datos['password'];
+            $password = md5($password);
+            $stmt->bindParam(':correo', $datos['correo'], PDO::PARAM_STR);
+            $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+            $stmt->execute();
+            $sql = "SELECT * FROM usuario WHERE correo = :correo;";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':correo', $datos['correo'], PDO::PARAM_STR);
+            $stmt->execute();
+            $usuario = array();
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $usuario = $stmt->fetchAll();
+            if (isset($usuario[0])) {
+                $id_usuario = $usuario[0]['id_usuario'];
+                $sql = "INSERT INTO usuario_rol VALUES (:id_usuario, 2);";
+                $stmt = $this->conn->prepare($sql);
+                $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+                $stmt->execute();
+                $sql = "INSERT INTO cliente (primer_apellido, segundo_apellido, nombre, rfc, id_usuario) VALUES (:primer_apellido, :segundo_apellido, :nombre, :rfc, :id_usuario);";
+                $stmt = $this->conn->prepare($sql);
+                $stmt->bindParam(':primer_apellido', $datos['primer_apellido'], PDO::PARAM_STR);
+                $stmt->bindParam(':segundo_apellido', $datos['segundo_apellido'], PDO::PARAM_STR);
+                $stmt->bindParam(':nombre', $datos['nombre'], PDO::PARAM_STR);
+                $stmt->bindParam(':rfc', $datos['rfc'], PDO::PARAM_STR);
+                $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+                $stmt->execute();
+                $sql = "SELECT * FROM cliente c JOIN usuario u ON c.id_usuario = :id_usuario;";
+                $stmt = $this->conn->prepare($sql);
+                $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+                $stmt->execute();
+                $cliente = array();
+                $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                $cliente = $stmt->fetchAll();
+                if (isset($cliente[0])) {
+                    $this->alert('success', 'Usuario registrado correctamente');
+                    $this->conn->commit();
+                    return true;
+                }
+                $this->alert('danger', 'Error al registrar usuario');
+                $this->conn->rollBack();
+                return false;
+            } else {
+                $this->alert('danger', 'Error al registrar');
+                $this->conn->rollBack();
+                return false;
+            }
+        } catch (PDOException $ex) {
+            $this->conn->rollBack();
+            return false;
         }
     }
 }

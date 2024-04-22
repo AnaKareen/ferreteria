@@ -34,6 +34,32 @@ switch ($action) {
             $app->alert('danger', '<i class="fa-solid fa-circle-xmark"></i> Correo no encontrado');
         }
         break;
+    case 'RECOVERY':
+        if (isset($_GET['token'])) {
+            $token = $_GET['token'];
+            if ($app->recovery($token)) {
+                if (isset($_POST['password'])) {
+                    $password = $_POST['password'];
+                    if ($app->recovery($token, $password)) {
+                        $type = "success";
+                        $message = '<i class="fa-solid fa-circle-check"></i> Contraseña actualizada correctamente';
+                        $app->alert($type, $message);
+                        include __DIR__ . '/views/login/index.php';
+                        die();
+                    } else {
+                        $type = "danger";
+                        $message = '<i class="fa-solid fa-circle-xmark"></i> No se pudo actualizar la contraseña';
+                        $app->alert($type, $message);
+                        die();
+                    }
+                }
+                include __DIR__ . '/views/login/recovery.php';
+                die();
+            }
+            $app->alert('danger', '<i class="fa-solid fa-circle-xmark"></i> Token no valido');
+            include 'views/login/index.php';
+        }
+        break;
     default:
         include __DIR__ . '/views/login/index.php';
 }
