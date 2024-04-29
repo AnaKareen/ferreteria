@@ -38,8 +38,6 @@ class Productos extends Sistema
     {
         $this->connect();
         $nombre_archivo = $this->upload('productos');
-        print_r($datos['imagen']);
-        die;
         if ($this->validateProducto($datos)) {
             $stmt = $this->conn->prepare("SELECT COUNT(*) AS count FROM marca WHERE id_marca = :id_marca");
             $stmt->bindParam(':id_marca', $datos['id_marca'], PDO::PARAM_INT);

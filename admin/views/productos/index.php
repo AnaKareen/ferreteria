@@ -5,6 +5,7 @@
             <div class="btn-group" role="group" aria-label="Basic example">
                 <a href="#" class="btn btn-primary">Regresar</a>
                 <a href="productos.php?action=CREATE" class="btn btn-success">Nuevo</a>
+                <a href="reportes.php?action=productos" class="btn btn-warning" target="_blank">Generar reporte</a>
             </div>
         </div>
     </div>

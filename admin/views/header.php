@@ -35,6 +35,16 @@
                             <li><a class="dropdown-item" href="tiendas.php">Tienda</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Administracion
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="usuarios.php" class="dropdown-item">Usuarios</a></li>
+                            <li><a href="roles.php" class="dropdown-item">Roles</a></li>
+                            <li><a href="privilegios.php" class="dropdown-item">Privilegios</a></li>
+                        </ul>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="login.php?action=logout">Logout</a>
                     </li>

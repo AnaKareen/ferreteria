@@ -119,7 +119,12 @@ $datos = $web->getAll();
                                             <div class="caption">
                                                 <h5><?php echo $dato['producto']; ?></h5>
                                                 <p>Marca: <strong><?php echo $dato['marca']; ?></strong></p>
-                                                <h4 style="text-align:center"><a class="btn" href="#"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$ <?php echo $dato['precio']; ?></a></h4>
+                                                <h4 style="text-align:center"><a class="btn btn-primary" href="#">$ <?php echo $dato['precio']; ?></a></h4>
+                                                <form action="cart-add.php" method="get">
+                                                    <input type="number" name="cantidad" min="1">
+                                                    <input type="hidden" name="id_producto" value="<?php echo $dato['id_producto']; ?>">
+                                                    <input type="submit" value="Agregar" class="btn btn-success">
+                                                </form>
                                             </div>
                                         </div>
                                     </li>
