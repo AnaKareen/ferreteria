@@ -18,9 +18,9 @@ class Reportes extends Sistema
             ob_start();
             $content = ob_get_clean();
             include __DIR__ . '/views/reportes/productos.php';
-            $html2pdf = new Html2PDF('P', 'A4', 'es');
+            $html2pdf = new Html2PDF('P', 'USLETTER', 'es');
             $html2pdf->writeHTML($content);
-            $html2pdf->Output('productos.pdf');
+            $html2pdf->Output('reporte_productos.pdf');
         } catch (Exception $e) {
             $formatter = new ExceptionFormatter($e);
             echo $formatter->getHtmlMessage();

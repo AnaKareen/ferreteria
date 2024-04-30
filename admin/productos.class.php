@@ -1,8 +1,7 @@
 <?php
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
-    // Redireccionar a productos.php
     header('Location: productos.php');
-    exit; // Detener la ejecución del resto del código
+    die;
 }
 require __DIR__ . "\\sistema.class.php";
 class Productos extends Sistema
