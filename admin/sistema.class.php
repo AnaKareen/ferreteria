@@ -83,8 +83,15 @@ class Sistema extends Config
 
     function logout()
     {
-        unset($_SESSION);
-        session_destroy();
+        if (!isset($_SESSION['cart'])) {
+            unset($_SESSION);
+            session_destroy();
+        } else {
+            unset($_SESSION['validado']);
+            unset($_SESSION['correo']);
+            unset($_SESSION['roles']);
+            unset($_SESSION['privilegios']);
+        }
     }
 
     function checkRol($rol, $kill = false)
@@ -131,10 +138,7 @@ class Sistema extends Config
 
     public function checkEmail($correo)
     {
-        if (filter_var($correo, FILTER_VALIDATE_EMAIL)) {
-            return true;
-        }
-        return false;
+        return filter_var($correo, FILTER_VALIDATE_EMAIL);
     }
 
     public function reset($correo)
@@ -216,9 +220,9 @@ class Sistema extends Config
         $mail->Port = 465;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $mail->SMTPAuth = true;
-        $mail->Username = '21030017@itcelaya.edu.mx';
-        $mail->Password = 'ltuqkhakkunmzwry';
-        $mail->setFrom('21030017@itcelaya.edu.mx', 'GUSTAVO RAMIREZ MIRELES');
+        $mail->Username = 'example@mail.com';
+        $mail->Password = 'password';
+        $mail->setFrom('example@mail.com', 'Nombre del usuario');
         $mail->addAddress($destinatario, $nombre);
         $mail->Subject = $asunto;
         $mail->msgHTML($mensaje);
