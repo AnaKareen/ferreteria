@@ -1,4 +1,4 @@
-<?php $pagina_anterior = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '#'; ?>
+<?php $pagina_anterior = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : ''; ?>
 <div class="container">
     <h1>Mis pedidos</h1>
     <div class="row">
@@ -30,7 +30,7 @@
                     <td>
                         <div class="btn-group" role="group">
                             <a href="" class="btn btn-primary">Ver detalles</a>
-                            <a href="" class="btn btn-warning">Imprimir</a>
+                            <a href="orders_print.php?id_venta=<?php echo $pedido['id_venta']; ?>" target="_blank" class="btn btn-warning">Imprimir</a>
                         </div>
                     </td>
                 </tr>
