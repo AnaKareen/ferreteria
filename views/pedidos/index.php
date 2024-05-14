@@ -13,7 +13,7 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>ID</th>
+                    <th style="max-width: 250px; width: 200px;">Número de pedido</th>
                     <th>Fecha</th>
                     <th>Cantidad</th>
                     <th>Total</th>
