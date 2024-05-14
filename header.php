@@ -21,16 +21,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="profile.php">Inicio</a>
+                    <a class="nav-link" aria-current="page" href="profile.php"><i class="fa fa-home"></i> Inicio</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="cart.php"><i class="fa fa-shopping-cart"></i> Ver carrito</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="orders.php"><i class=""></i> Ver pedidos</a>
+                    <a class="nav-link" aria-current="page" href="orders.php"><i class="fa fa-box"></i> Ver pedidos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="logout.php"><i class=""></i> Logout</a>
+                    <a class="nav-link" aria-current="page" href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
                 </li>
             </ul>
         </div>
