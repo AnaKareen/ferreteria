@@ -74,6 +74,7 @@ class Sistema extends Config
             $_SESSION['correo'] = $correo;
             $_SESSION['roles'] = $roles;
             $_SESSION['privilegios'] = $privilegios;
+            $_SESSION['id_usuario'] = $datos[0]['id_usuario'];
             return $datos[0];
         } else {
             $this->logout();
@@ -212,7 +213,7 @@ class Sistema extends Config
 
     public function sendMail($destinatario, $nombre, $asunto, $mensaje)
     {
-        require '../vendor/autoload.php';
+        require __DIR__ . '/../vendor/autoload.php';
         $mail = new PHPMailer();
         $mail->isSMTP();
         $mail->SMTPDebug = SMTP::DEBUG_OFF;
@@ -220,9 +221,10 @@ class Sistema extends Config
         $mail->Port = 465;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $mail->SMTPAuth = true;
-        $mail->Username = 'example@mail.com';
-        $mail->Password = 'password';
-        $mail->setFrom('example@mail.com', 'Nombre del usuario');
+        $mail->CharSet = PHPMailer::CHARSET_UTF8;
+        $mail->Username = '21030017@itcelaya.edu.mx';
+        $mail->Password = 'vzwoxjwqbpkvweqc';
+        $mail->setFrom('21030017@itcelaya.edu.mx', 'GUSTAVO RAMIREZ MIRELES');
         $mail->addAddress($destinatario, $nombre);
         $mail->Subject = $asunto;
         $mail->msgHTML($mensaje);
