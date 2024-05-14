@@ -24,6 +24,9 @@
                     <a class="nav-link" aria-current="page" href="profile.php"><i class="fa fa-home"></i> Inicio</a>
                 </li>
                 <li class="nav-item">
+                    <a href="productos.php" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Ver productos</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="cart.php"><i class="fa fa-shopping-cart"></i> Ver carrito</a>
                 </li>
                 <li class="nav-item">
