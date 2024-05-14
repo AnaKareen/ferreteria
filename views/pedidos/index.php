@@ -1,9 +1,10 @@
+<?php $pagina_anterior = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '#'; ?>
 <div class="container">
     <h1>Mis pedidos</h1>
     <div class="row">
         <div class="col-lg-4 col-md-12">
             <div class="btn-group" role="group" aria-label="Basic example">
-                <a href="#" class="btn btn-primary">Regresar</a>
+                <a href="<?php echo $pagina_anterior; ?>" class="btn btn-primary">Regresar</a>
             </div>
         </div>
     </div>
@@ -24,8 +25,8 @@
                 <tr>
                     <td><?php echo $pedido['id_venta']; ?></td>
                     <td><?php echo $pedido['fecha'];?></td>
-                    <td><?php echo $pedido['cantidad'];?></td>
-                    <td>$ <?php echo $pedido['monto'];?></td>
+                    <td><?php echo $pedido['cantidad']%1 == 0 ? bcdiv($pedido['cantidad'], 1, 0) : $pedido['cantidad']; ?></td>
+                    <td>$ <?php echo bcdiv($pedido['monto'], 1, 2);?></td>
                     <td>
                         <div class="btn-group" role="group">
                             <a href="" class="btn btn-primary">Ver detalles</a>
