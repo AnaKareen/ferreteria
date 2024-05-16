@@ -2,9 +2,11 @@
 include __DIR__ . '/admin/sistema.class.php';
 require_once 'vendor/autoload.php';
 $app = new Sistema();
+
 use Spipu\Html2Pdf\Html2Pdf;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Exception\ExceptionFormatter;
+
 $app->checkRol("Cliente", true);
 $id_venta = $_GET['id_venta'];
 $app->connect();
@@ -26,4 +28,3 @@ include __DIR__ . '/views/order_print.php';
 $html2pdf = new Html2Pdf("P", "USLETTER", "es");
 $html2pdf->writeHTML($content);
 $html2pdf->output('order.pdf');
-?>

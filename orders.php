@@ -1,7 +1,7 @@
 <?php
 include __DIR__ . '/admin/sistema.class.php';
 $app = new Sistema();
-if(!$app->checkRol("Cliente")) {
+if (!$app->checkRol("Cliente")) {
     header("Location: login.php");
 }
 include __DIR__ . '/header.php';
