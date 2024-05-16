@@ -10,7 +10,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
-
 <body>
 <nav data-bs-theme="dark" class="navbar navbar-expand-lg bg-body-secondary bg-dark">
     <div class="container-fluid">
@@ -21,7 +20,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="profile.php"><i class="fa fa-home"></i> Inicio</a>
+                    <a class="nav-link" aria-current="page" href="index.php"><i class="fa fa-home"></i> Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="profile.php"><i class="fa fa-user"></i> Mi perfil</a>
                 </li>
                 <li class="nav-item">
                     <a href="productos.php" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Ver productos</a>
@@ -32,9 +34,15 @@
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="orders.php"><i class="fa fa-box"></i> Ver pedidos</a>
                 </li>
+                <?php if (isset($_SESSION['validado'])) : ?>
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
                 </li>
+                <?php else : ?>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="login.php"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+                </li>
+                <?php endif; ?>
             </ul>
         </div>
     </div>

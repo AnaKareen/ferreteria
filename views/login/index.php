@@ -122,7 +122,7 @@
 
 
 <main class="form-signin w-100 m-auto">
-    <form action="login.perfil.php?action=login" method="post">
+    <form action="login.php?action=login" method="post">
         <img class="mb-4 d-flex justify-content-center" src="../uploads/productos/default.png" alt="Logo" width="95" height="95">
         <h1 class="h3 mb-3 fw-normal">Iniciar sesión</h1>
 
