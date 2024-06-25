@@ -1,3 +1,5 @@
+<?php include_once __DIR__ . '/../../productos.php';?>
+
 <div class="container">
     <h1>Productos</h1>
     <div class="row">

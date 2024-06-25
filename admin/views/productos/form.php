@@ -1,3 +1,4 @@
+<?php include_once __DIR__ . '\..\../productos.php';?>
 <div class="container">
     <h1><?php echo ($action == 'UPDATE') ? 'Actualizar información del producto' : 'Agregar nuevo producto'; ?></h1>
     <form action="productos.php?action=<?php echo ($action == 'UPDATE') ? 'EDIT&id_producto=' . $datos['id_producto'] : 'SAVE'; ?>" method="post" enctype="multipart/form-data">

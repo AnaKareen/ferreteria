@@ -10,6 +10,7 @@ switch ($action) {
         $message = '<i class="fa-solid fa-circle-check"></i> Sesión cerrada correctamente';
         $app->alert($type, $message);
         break;
+        include __DIR__ . '/views/login/index.php';
     case "login":
         $correo = $_POST['correo'];
         $password = $_POST['password'];

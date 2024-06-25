@@ -27,7 +27,6 @@ $content = "
     }
 </style>
 <div style='text-align: center'>
-    <img src='../uploads/productos/default.png' style='width: 100px; height: 100px;' alt='Productos'>
     <h1>Listado de productos</h1>
     <table align='center'>
         <thead>

@@ -30,4 +30,4 @@
         </div>
     </form>
 </div>
-<script src="views/cart/js/script.js"></script>
+<script src="js/script.js"></script>

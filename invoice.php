@@ -83,6 +83,7 @@ try {
             }
         } else {
             $app->conn->rollback();
+            print_r($app);
             $app->alert("danger", "<i class='fa-solid fa-circle-xmark'></i> No se ha encontrado el cliente");
         }
     } else {

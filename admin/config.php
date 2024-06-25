@@ -4,7 +4,7 @@ define('DB_DRIVER', 'mysql');
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'ferreteria');
 define('DB_USER', 'ferreteria');
-define('DB_PASSWORD', '@admin');
+define('DB_PASSWORD', '123');
 define('DB_PORT', '3306');
 
 

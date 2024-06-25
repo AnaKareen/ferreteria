@@ -14,7 +14,7 @@ class Privilegio extends Sistema
         return $datos;
     }
 
-    public function getById($id_privilegio)
+    public function getOne($id_privilegio)
     {
         $this->connect();
         $stmt = $this->conn->prepare("SELECT * FROM privilegio WHERE id_privilegio = :id_privilegio;");
@@ -31,7 +31,7 @@ class Privilegio extends Sistema
     {
         $this->connect();
         if ($this->validatePrivilegio($datos)) {
-            $stmt = $this->conn->prepare("INSERT INTO privilegio (privilegio) VALUES (:privilegio);");
+            $stmt = $this->conn->prepare("INSERT INTO privilegio(privilegio) VALUES (:privilegio);");
             $stmt->bindParam(':privilegio', $datos['privilegio'], PDO::PARAM_STR);
             $stmt->execute();
             return $stmt->rowCount();

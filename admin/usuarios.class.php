@@ -14,7 +14,7 @@ class Usuario extends Sistema
         return $datos;
     }
 
-    public function getById($id_usuario)
+    public function getOne($id_usuario)
     {
         $this->connect();
         $stmt = $this->conn->prepare("SELECT * FROM usuario WHERE id_usuario = :id_usuario;");

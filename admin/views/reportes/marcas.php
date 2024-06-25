@@ -4,12 +4,8 @@ $content = "
     body {
         font-family: Arial, sans-serif;
     }
-    .container {
-        margin: 20px auto;
-        max-width: 800px;
-    }
     h1 {
-        color: red;
+        color: #9d0000;
         font-weight: bold;
     }
     table {
@@ -19,7 +15,7 @@ $content = "
     th, td {
         border: 1px solid #ddd;
         padding: 8px;
-        text-align: left;
+        text-align: center;
     }
     th {
         background-color: #f2f2f2;
@@ -31,7 +27,6 @@ $content = "
     }
 </style>
 <div class='container'>
-    <img src='../uploads/tiendas/default.png' style='width: 100px; height: 100px;' alt='Marcas'>
     <h1>Listado de marcas</h1>
     <table>
         <thead>

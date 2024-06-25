@@ -4,9 +4,7 @@
         <div class="col-lg-12 col-md-12">
             <h1>Productos</h1>
         </div>
-        <div class="col-lg-4 col-md-12">
-            <p>Se han encontrado <?php echo $web->getCount(); ?> productos</p>
-        </div>
+        
     </div>
     <div class="row">
         <?php foreach ($datos as $producto) : ?>
